@@ -1,6 +1,7 @@
 from prefect import flow, task
 from prefect.tasks import task_input_hash
 from prefect.logging import get_run_logger
+# from prefect_github.repository import GitHubRepository
 import time
 from dotenv import load_dotenv
 load_dotenv()
@@ -49,7 +50,7 @@ def send_email(user, hour_of_day):
 
 
 @flow(name="Greet User", log_prints=True)
-def main(user):
+def main(user: str="Mfon Ekpo"):
     hour_of_day = get_time()
     send_email(user, hour_of_day)
 
