@@ -1,3 +1,4 @@
 *.env
 *.yaml
 venv
+__pycache__
