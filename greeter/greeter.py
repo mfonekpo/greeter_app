@@ -23,20 +23,26 @@ yag = yagmail.SMTP(
 
 @task(name="Get Time", log_prints=True)
 def get_time():
-    hour_of_day =time.localtime().tm_hour
+    logger = get_run_logger()
+    hour_of_day = time.localtime().tm_hour
+    logger.info(f"Current hour of the day: {hour_of_day}")
     return hour_of_day
 
 @task(name="Greet User", log_prints=True)
 def greet_user(user, hour_of_day):
-    if hour_of_day >=6 and hour_of_day < 12:
-        return f"Good morning {user}"
+    logger = get_run_logger()
+    if hour_of_day >= 6 and hour_of_day < 12:
+        greeting = f"Good morning {user}"
     elif hour_of_day >= 12 and hour_of_day < 18:
-        return f"Good afternoon {user}"
+        greeting = f"Good afternoon {user}"
     elif hour_of_day >= 18 and hour_of_day < 24:
-        return f"Good evening {user}"
+        greeting = f"Good evening {user}"
+    logger.info(f"Greeting generated: {greeting}")
+    return greeting
 
 @task(name="Send Email", log_prints=True, retries=3)
 def send_email(user, hour_of_day):
+    logger = get_run_logger()
     try:
         contents = greet_user(user, hour_of_day)
         yag.send(
@@ -44,13 +50,14 @@ def send_email(user, hour_of_day):
             subject=subject,
             contents=contents
         )
-        print(f"Sending email from {fromaddress} to {toaddress} with subject {subject} and body {contents}")
+        logger.info(f"Sending email from {fromaddress} to {toaddress} with subject {subject} and body {contents}")
     except Exception as e:
-        print(f"Failed to send email: {e}")
-
+        logger.error(f"Failed to send email: {e}")
 
 @flow(name="Greet User", log_prints=True)
 def main(user: str="Mfon Ekpo"):
+    logger = get_run_logger()
+    logger.info(f"Flow started for user: {user}")
     hour_of_day = get_time()
     send_email(user, hour_of_day)
 
