@@ -32,7 +32,7 @@ deployments:
   entrypoint: greeter/greeter.py:main
   parameters: {}
   work_pool:
-    name: local-process
+    name: managedPrefect-workpool
     work_queue_name: null
     job_variables: {}
   enforce_parameter_schema: true
