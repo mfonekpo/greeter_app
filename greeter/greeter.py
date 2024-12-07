@@ -63,4 +63,12 @@ def main(user: str="Mfon Ekpo"):
 
 
 if __name__ == "__main__":
-    main("Mfon Ekpo")
+    main("Mfon Ekpo").from_source(
+        source_name="https://github.com/mfonekpo/greeter_app.git",
+        entrypoint="greeter/greeter.py:main"
+    ).deploy(
+        name="greeter_deployment",
+        work_pool_name="managedPrefect-workpool",
+        cron="*/2 * * * *",
+        timezone="Africa/Lagos"
+    )
