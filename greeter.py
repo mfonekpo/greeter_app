@@ -63,7 +63,7 @@ def main(user: str="Mfon Ekpo"):
 if __name__ == "__main__":
     main.from_source(
         source="https://github.com/mfonekpo/greeter_app.git",
-        entrypoint="greeter/greeter.py:main",
+        entrypoint="greeter.py:main",
     ).deploy(
         name="greeter_deployment",
         work_pool_name="managedPrefect-workpool",
