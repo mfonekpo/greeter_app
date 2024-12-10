@@ -61,12 +61,12 @@ def main(user: str="Mfon Ekpo"):
 
 
 if __name__ == "__main__":
-    main.from_source(
+    flow.from_source(
         source="https://github.com/mfonekpo/greeter_app.git",
         entrypoint="greeter.py:main",
     ).deploy(
         name="greeter_deployment",
         work_pool_name="managedPrefect-workpool",
         cron="*/2 * * * *",
-        timezone="Africa/Lagos",
+        # timezone="Africa/Lagos"
     )
