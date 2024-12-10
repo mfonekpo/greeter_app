@@ -66,7 +66,7 @@ if __name__ == "__main__":
         entrypoint="greeter.py:main",
     ).deploy(
         name="greeter_deployment",
-        work_pool_name="local-process",
+        work_pool_name="modal-workpool",
         cron="*/2 * * * *",
         # timezone="Africa/Lagos"
     )
